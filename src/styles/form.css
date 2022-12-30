@@ -1,0 +1,22 @@
+.input-grp input:focus ~ label {
+  color: blue !important;
+  font-size: 12px;
+  top: -10px;
+  left: 0;
+}
+
+.animate-form{
+    animation: animateForm 1s ease-in-out forwards; 
+}
+
+
+@keyframes animateForm{
+    0%{
+        opacity: 0;
+        transform: translateX(-5%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}

@@ -1,0 +1,24 @@
+.side-bg{
+    background-image: url('https://cdn.wallpapersafari.com/76/14/247F6e.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+.animate-title{
+    animation: animateTitle 1s ease-in-out forwards; 
+}
+
+
+@keyframes animateTitle{
+    0%{
+        opacity: 0;
+        transform: translateX(10%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
