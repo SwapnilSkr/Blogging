@@ -1,24 +1,64 @@
-import React from 'react'
-import { useSelector,useDispatch } from 'react-redux'
-import { userLogout } from '../redux/actions/userAuthActions'
-import { useNavigate } from 'react-router-dom'
+import React,{useRef,useEffect} from 'react'
+import { useSelector } from 'react-redux'
+import Navbar from '../components/Navbar/Navbar'
 
 function Home() {
-    const dispatch = useDispatch()
-    const {userInfo} = useSelector(state => state.userAuth)
-    const navigate = useNavigate()
-    const handleLogout = () => {
-        dispatch(userLogout())
-        navigate('/user-authentication/login')
+  const {userInfo} = useSelector(state => state.userAuth)
+  const nav = useRef()
+  
+  useEffect(() => {
+    nav.current.classList.remove('md:py-2')
+    nav.current.classList.add('md:py-4')
+  }, [])
+  
+  window.addEventListener('scroll', (e) => {
+    if(window.scrollY > 0){
+      nav.current.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)'
+      nav.current.classList.remove('md:py-4')
+      nav.current.classList.add('md:py-2')
+    }else{
+      nav.current.style.boxShadow = 'none'
+      nav.current.classList.remove('md:py-2')
+      nav.current.classList.add('md:py-4')
     }
+  })
   return (
-    <div>
-        <h1>Home</h1>
-        <h2>{userInfo?.name}</h2>
-        <h2>@{userInfo?.username}</h2>
-        <h2>{userInfo?.email}</h2>
-        <button onClick={handleLogout}>Logout</button>
+    <>
+    {userInfo !== null && <div ref={nav} className='md:sticky top-0 z-10 w-full bg-white py-2 md:py-4 pb-2  transition-all'>
+      <Navbar/>
+      </div>}
+    <div className='min-h-screen container'>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
+      <p>dfb</p>
     </div>
+    </>
   )
 }
 

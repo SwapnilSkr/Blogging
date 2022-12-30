@@ -35,7 +35,7 @@ const userAuthReducer = (state = {}, action) => {
         case USER_LOGOUT:
             return {
                 ...state,
-                userInfo: {},
+                userInfo: null,
                 error: null,
             }
         case SET_USER: 

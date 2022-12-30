@@ -5,10 +5,11 @@ import Authentication from './pages/Authentication/Authentication'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import ProfileForm from './components/ProfileForm'
-import Alert from './components/Alert'
 import Home from './pages/Home'
 import { setUser } from './redux/actions/userAuthActions'
 import { useDispatch } from 'react-redux'
+
+import { NavProvider } from './context/NavContext'
 
 
 function App() {
@@ -16,10 +17,13 @@ function App() {
   useEffect(() => {
     dispatch(setUser())
   }, [])
+
   return (
+    <NavProvider>
+    <div className='w-full'>
     <Router>
+      
       <Routes>
-        {/* <Alert/> */}
         <Route path='/' element={<ProtectedRoute Component={Home}/>}/>
         <Route path='/user-authentication' element={<Authentication/>}>
           <Route path='login' element={<LoginForm/>}/>
@@ -28,6 +32,8 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </div>
+    </NavProvider>
   )
 }
 

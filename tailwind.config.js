@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       fontFamily:{
         manrope: ['Manrope', 'sans-serif'],
+        noticia: ['Noticia Text', 'serif'],
+        playfair: ['Playfair Display', 'serif'],
       }
     },
   },
