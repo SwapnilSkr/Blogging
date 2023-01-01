@@ -7,9 +7,9 @@ import { setEditBlogContent} from '../../redux/actions/AddBlogActions'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 function Blog() {
-    const {blogContent, ediBlogContent, blogList} = useSelector(state => state.blog)
+    const {blogContent, editBlogContent, blogList} = useSelector(state => state.blog)
     console.log('blogContent: ',blogContent);
-    console.log('ediBlogContent: ',ediBlogContent);
+    console.log('editBlogContent: ',editBlogContent);
     const {userInfo} = useSelector(state => state.userAuth)
     console.log('blogList: ',blogList);
     const {id} = useParams()
@@ -27,13 +27,13 @@ function Blog() {
           dispatch(getAllBlogsFromDb())
         }
       }
-    },[])
+    },[pathname])
 
     useEffect(() => {
       if(pathname === '/edit/preview')
-        setBlog(ediBlogContent)
+        setBlog(editBlogContent)
       else setBlog(blogContent)
-    },[pathname, blogContent, ediBlogContent])
+    },[pathname, blogContent, editBlogContent])
 
     const handleEdit = async () => {
       console.log('Edit');
@@ -45,7 +45,7 @@ function Blog() {
       <div className='flex flex-col items-start gap-4 font-manrope' style={{flexBasis:'95%'}}>
           <div className='flex flex-row items-center justify-between w-full'>
             {blog?.author && <p className='text-sm font-bold'>{new Date(blog?.createdAt).toString()}</p>}    
-            {blog?.author && blog?.author._id === userInfo?._id && pathname !== '/preview' && 
+            {blog?.author && blog?.author._id === userInfo?._id && !pathname.endsWith('/preview') && 
             <button onClick={handleEdit} title='Edit Blog'>
               <EditRoundedIcon/>
             </button>}
@@ -56,9 +56,9 @@ function Blog() {
           <p className='text-sm text-justify'>{blog?.content}</p>
           <p className='text-sm text-justify'>{blog?.content}</p>
           {blog?.author && <p className='text-sm'>- by, <span className='font-medium'>{blog?.author?.name}</span>, @{blog?.author?.username}</p>}
-          {blog?.author && pathname !== '/preview' &&
+          {blog?.author && !pathname.endsWith('/preview') &&
           <Link to={`/profile/${blog?.author?._id}`} className='p-4 rounded self-end bg-gradient-to-b from-black/70 to-black/95 text-white hover:shadow-lg hover:cursor-pointer'>
-            <p className='text-sm'><span className='font-bold'>Read More</span> blogs posted by - {blog?.author?.name}</p>
+            {blog?.author?._id === userInfo?._id ? <p className='text-sm'>Check all your blogs {blog?.author?.name.split(' ')[0]}</p> : <p className='text-sm'><span className='font-bold'>Read More</span> blogs posted by - {blog?.author?.name}</p>}
           </Link>}
       </div>
       {!pathname.endsWith('/preview') && 
