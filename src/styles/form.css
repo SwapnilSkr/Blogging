@@ -1,3 +1,6 @@
+.input-grp{
+    opacity: 0;
+}
 .input-grp input:focus ~ label {
   color: blue !important;
   font-size: 12px;
@@ -9,6 +12,34 @@
     animation: animateForm 1s ease-in-out forwards; 
 }
 
+input::placeholder, textarea::placeholder{
+    font-size: smaller !important;
+}
+
+.delay-15{
+    animation-delay: 0.15s;
+}
+
+.delay-2{
+    animation-delay: 0.2s;
+}
+.delay-25{
+    animation-delay: 0.25s;
+}
+
+.delay-3{
+    animation-delay: 0.3s;
+}
+.delay-35{
+    animation-delay: 0.35s;
+}
+
+.delay-4{
+    animation-delay: 0.4s;
+}
+.delay-45{
+    animation-delay: 0.45s;
+}
 
 @keyframes animateForm{
     0%{

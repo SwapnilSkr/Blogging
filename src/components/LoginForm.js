@@ -24,7 +24,7 @@ function LoginForm() {
       try{
         console.log('user info: ',userObj);
           await dispatch(loginUser(userObj))
-          navigate('/')
+          navigate('/home')
       }
       catch(err){
           console.log(err)
@@ -53,15 +53,15 @@ function LoginForm() {
   }
     
   return (
-    <div className='flex flex-col w-full p-10 px-6 md:p-10 gap-8 animate-form'>
+    <div className='flex flex-col w-full p-10 px-6 md:p-10 gap-8'>
         <h2 className='font-manrope font-bold text-3xl'>Login</h2>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form '>
             <label className='' htmlFor='email'>Username</label>
             <input required  onChange={handleUsername} placeholder='username' className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors p-2 pl-8' type='text' name='username' id='username'/>
             <p className='absolute bottom-0 left-0 p-2'>@</p>
             </div>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form delay-15'>
             <label htmlFor='password'>Password</label>
             <input required onChange={handlePassword} className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors pr-10 p-2' type={showPassword ? 'text':'password'} name='password' id='password'/>
             <button className='absolute bottom-0 right-0 p-2' onClick={()=>setShowPassword(prev=>!prev)} type='button'>{!showPassword ? 'Show' : 'Hide'}</button>

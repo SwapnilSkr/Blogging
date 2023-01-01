@@ -69,21 +69,21 @@ function SignupForm() {
     },[userObj])
     
   return (
-    <div className='flex flex-col w-full p-10 px-6 md:p-10 gap-8 animate-form'>
+    <div className='flex flex-col w-full p-10 px-6 md:p-10 gap-8'>
         <h2 className='font-manrope font-bold text-3xl'>Sign Up</h2>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form'>
             <label className='' htmlFor='email'>Email</label>
             <input required onChange={handleEmail} className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors p-2' type='email' name='email' id='email'/>
             </div>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form delay-15'>
             <label htmlFor='password'>Password</label>
             <input required onChange={(e)=>setPass(prev=>e.target.value)} className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors pr-10 p-2' type={showPassword ? 'text':'password'} name='password' id='password'/>
             <button className='absolute bottom-0 right-0 p-2' onClick={()=>setShowPassword(prev=>!prev)} type='button'>{!showPassword ? 'Show' : 'Hide'}</button>
             </div>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form delay-3'>
             <label htmlFor='password'>Confirm Password</label>
-            <input required onChange={(e)=>setCPass(prev=>e.target.value)} className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors pr-10 p-2' type={showCPassword ? 'text':'password'} name='password' id='password'/>
+            <input required onChange={(e)=>setCPass(prev=>e.target.value)} className=' focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors pr-10 p-2' type={showCPassword ? 'text':'password'} name='password' id='password'/>
             <button className='absolute bottom-0 right-0 p-2' onClick={()=>setShowCPassword(prev=>!prev)} type='button'>{!showCPassword ? 'Show' : 'Hide'}</button>
             </div>
             <p className='text-red-700'>{error}</p>

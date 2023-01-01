@@ -5,11 +5,16 @@ import Authentication from './pages/Authentication/Authentication'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import ProfileForm from './components/ProfileForm'
-import Home from './pages/Home'
+import AppHome from './pages/Home'
+import Home from './pages/InApp/Home'
 import { setUser } from './redux/actions/userAuthActions'
 import { useDispatch } from 'react-redux'
 
 import { NavProvider } from './context/NavContext'
+import AddBlog from './pages/InApp/AddBlog'
+import Blog from './pages/InApp/Blog'
+import Profile from './pages/InApp/Profile'
+import EditBlog from './pages/InApp/EditBlog'
 
 
 function App() {
@@ -24,7 +29,15 @@ function App() {
     <Router>
       
       <Routes>
-        <Route path='/' element={<ProtectedRoute Component={Home}/>}/>
+        <Route path='/' element={<ProtectedRoute Component={AppHome}/>}>
+          <Route path='home' element={<Home/>}/>
+          <Route path='add' element={<AddBlog/>}/>
+          <Route path='edit' element={<EditBlog/>}/>
+          <Route path='edit/preview' element={<Blog/>}/>
+          <Route path='preview' element={<Blog/>}/>
+          <Route path='blog/:id' element={<Blog/>}/>
+          <Route path='/profile/:id' element={<Profile/>}/>
+        </Route>
         <Route path='/user-authentication' element={<Authentication/>}>
           <Route path='login' element={<LoginForm/>}/>
           <Route path='signup' element={<SignupForm/>}/>

@@ -1,8 +1,9 @@
 import React,{useRef,useEffect} from 'react'
 import { useSelector } from 'react-redux'
+import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar/Navbar'
 
-function Home() {
+function AppHome() {
   const {userInfo} = useSelector(state => state.userAuth)
   const nav = useRef()
   
@@ -24,42 +25,14 @@ function Home() {
   })
   return (
     <>
-    {userInfo !== null && <div ref={nav} className='md:sticky top-0 z-10 w-full bg-white py-2 md:py-4 pb-2  transition-all'>
+    {userInfo !== null && <div ref={nav} className='md:sticky top-0 z-10 w-full bg-white py-2 md:py-4 pb-2  border-b-2 border-black/5 transition-all'>
       <Navbar/>
       </div>}
-    <div className='min-h-screen container'>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
-      <p>dfb</p>
+    <div className='min-h-screen container p-4 md:p-0'>
+      <Outlet/>
     </div>
     </>
   )
 }
 
-export default Home
+export default AppHome

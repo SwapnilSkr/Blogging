@@ -32,7 +32,7 @@ function ProfileForm() {
         name,
         username
       }))
-      navigate('/')
+      navigate('/home')
     }).catch(err => {
       console.log(err.response.data.error);
       setError(prev=>err.response.data.error)
@@ -50,19 +50,19 @@ function ProfileForm() {
   }
 
   return (
-    userInfo && <div className='flex flex-col w-full p-10 px-6 md:p-10 gap-8 animate-form'>
+    userInfo && <div className='flex flex-col w-full p-10 px-6 md:p-10 gap-8'>
         <h2 className='font-manrope font-bold text-3xl'>You're just one step away from finishing the resgistration process!</h2>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form '>
             <label className='' htmlFor='email'>Name</label>
             <input  required onChange={handleName} placeholder='John Smith' className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors p-2' type='text' name='name' id='name'/>
             </div>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form delay-15'>
             <label className='' htmlFor='email'>Username</label>
             <input required  onChange={handleUsername} placeholder='username' className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors p-2 pl-8' type='text' name='username' id='username'/>
             <p className='absolute bottom-0 left-0 p-2'>@</p>
             </div>
-            <div className='flex flex-col input-grp relative'>
+            <div className='flex flex-col input-grp relative animate-form delay-3'>
             <label className='' htmlFor='email'>Email</label>
             <p className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors p-2'>{userInfo.email}</p>
             </div>
