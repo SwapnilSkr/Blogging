@@ -14,13 +14,13 @@ function Home() {
     }, [])
   return (
     <div className='flex flex-col w-full flex-wrap pt-4'>
-      {blogListLoding && <p>Loading...</p>}
-      {blogListError && <p>{blogListError}</p>}
-      <div className='h-full bg-red-600 flex flex-row rounded overflow-hidden'>
+      <div className='h-full flex flex-row rounded overflow-hidden'>
       <Carousel blogs={blogList?.slice(0,4)}/>
       </div>
       <h2 className='py-8 font-playfair text-xl font-extrabold'>Blogs</h2>
-      <BlogList blogList={blogList?.slice(4)}/>
+      {blogListLoding && <p>Loading...</p>}
+      {blogListError && <p>{blogListError}</p>}
+      <BlogList blogList={blogList.length > 4 ? blogList?.slice(4) : blogList}/>
     </div>
   )
 }

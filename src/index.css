@@ -10,3 +10,24 @@
     max-width: 1360px;
     margin: 0 auto;
 }
+
+h1, h2{
+    font-family: 'Playfair Display', sans-serif;
+    font-weight: 800;
+    line-height: 3.5rem;
+    color: #000000;
+}
+
+h1{
+    font-size: 2.5rem;
+}
+
+h2{
+    font-size: 1.5rem;
+}
+
+p{
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+}
+

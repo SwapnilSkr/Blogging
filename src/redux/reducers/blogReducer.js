@@ -1,4 +1,4 @@
-import { SET_BLOG_CONTENT, SET_EDIT_BLOG_CONTENT, SET_BLOG_LIST, SET_BLOG_LIST_LOADING, ADD_BLOG, ADD_BLOG_FAILED, ADD_BLOG_REQUEST, ADD_BLOG_SUCCESS, UPDATE_BLOG_REQUEST,UPDATE_BLOG_SUCCESS,UPDATE_BLOG_FAILED, GET_ALL_BLOGS_REQUEST, GET_ALL_BLOGS_SUCCESS, GET_ALL_BLOGS_FAILED, GET_BLOG_REQUEST, GET_BLOG_SUCCESS, GET_BLOG_FAILED, GET_PROFILE_BLOGS_FAILED, GET_PROFILE_BLOGS_REQUEST, GET_PROFILE_BLOGS_SUCCESS } from "../constants/blog"
+import { SET_BLOG_CONTENT, SET_EDIT_BLOG_CONTENT, SET_BLOG_LIST, SET_BLOG_LIST_LOADING, ADD_BLOG, ADD_BLOG_FAILED, ADD_BLOG_REQUEST, ADD_BLOG_SUCCESS, DELETE_BLOG, UPDATE_BLOG_REQUEST,UPDATE_BLOG_SUCCESS,UPDATE_BLOG_FAILED, GET_ALL_BLOGS_REQUEST, GET_ALL_BLOGS_SUCCESS, GET_ALL_BLOGS_FAILED, GET_BLOG_REQUEST, GET_BLOG_SUCCESS, GET_BLOG_FAILED, GET_PROFILE_BLOGS_FAILED, GET_PROFILE_BLOGS_REQUEST, GET_PROFILE_BLOGS_SUCCESS } from "../constants/blog"
 
 const initialState = {
     blogContent: null,
@@ -126,6 +126,11 @@ export default function blogReducer(state = initialState, action) {
                 ...state,
                 blogListLoading: false,
                 blogListError: action.payload,
+            }
+        case DELETE_BLOG:
+            return {
+                ...state,
+                blogList: state.blogList.filter(blog => blog._id !== action.payload),
             }
         default:
             return state

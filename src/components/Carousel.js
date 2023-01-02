@@ -16,7 +16,7 @@ function Carousel({blogs}) {
     }, 10000)
   }, [idx])
     return (
-    <div className='flex flex-row flex-wrap bg-red-300 relative w-full h-[400px]'>
+    <div className='flex flex-row flex-wrap relative w-full h-[400px]'>
         {blogs && <CarouselCard blog={blogs[idx]}/>}
         {/* <div className='flex flex-row items-centerjustify-between w-full self-end p-4'>
             <ArrowCircleLeftOutlinedIcon onClick={()=>{setIdx(prev=>prev-1)}}/>

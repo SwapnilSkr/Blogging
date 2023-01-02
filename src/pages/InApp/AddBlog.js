@@ -14,8 +14,39 @@ function AddBlog() {
         title: blogContent?.author ? '' : blogContent?.title,
         subtitle: blogContent?.author ? '' : blogContent?.subtitle,
         genre: blogContent?.author ? '' : blogContent?.genre,
-        content: blogContent?.author ? '' : blogContent?.content
+        content: blogContent?.author ? '' : blogContent?.content,
+        image: blogContent?.author ? null : blogContent?.image,
+        imgName: blogContent?.author ? null : blogContent?.imgName
     })
+
+    const handleImage = async (e) => {
+        const img = e.target.files[0]
+        const imgBase64 = await convertTobase64(img)
+        console.log(img);
+        console.log(imgBase64);
+        setBlog(prev => {
+            return {
+                ...prev,
+                image: imgBase64,
+                imgName: img.name
+            }
+        })
+    }
+
+    const convertTobase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -66,7 +97,7 @@ function AddBlog() {
     }
 
     useEffect(()=>{
-        if(blog?.title?.length > 0 && blog?.genre?.length > 0 && blog?.content?.length >= 10){
+        if(blog?.title?.length > 0 && blog?.genre?.length > 0 && blog?.content?.length >= 1){
             setShowAdd(prev=>true)
             if(blog !== null) dispatch(setBlogContent(blog))
         }
@@ -82,7 +113,8 @@ function AddBlog() {
         <div className='flex flex-row items-center justify-between w-full'>
             <h2 className='font-bold font-playfair text-4xl'>Add Blog</h2>
             <div className='flex flex-row gap-4'>
-            {showAdd && <button onClick={handleSubmit} className='border border-black hover:bg-black hover:text-white shadow-md hover:-translate-y-1 transition-all p-2 rounded'>{addBlogError ? `${addBlogError}` : 'Add Blog'}</button>}
+            {addBlogError && <p className='text-sm text-red-600'>{addBlogError.includes('is shorter than') && 'Content is shorter than minimum length'}</p>}
+            {showAdd && <button onClick={handleSubmit} className='border border-black hover:bg-black hover:text-white shadow-md hover:-translate-y-1 transition-all p-2 rounded'>{'Add Blog'}</button>}
             {showAdd && <Link to='/preview' className='bg-black text-white shadow-md hover:-translate-y-1 transition-all p-2 rounded'>Preview</Link>}
             </div>
         </div>
@@ -103,9 +135,13 @@ function AddBlog() {
             </div>
             <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
                 <label htmlFor='content'>Content*</label>
-                <textarea value={blog.content} minLength={10} placeholder='Min. 500 characters' onChange={handleContent} required className='bg-gray-100 focus:outline-0 focus:border-b-2 focus:border-b-black transition-colors p-2' name='content' id='content' cols='30' rows='10'/>
+                <textarea value={blog.content} minLength={1000} placeholder='Min. 1000 characters' onChange={handleContent} required className='bg-gray-100 focus:outline-0 focus:border-b-2 focus:border-b-black transition-colors p-2' name='content' id='content' cols='30' rows='10'/>
+                <p className='absolute bottom-0 right-0 p-2 text-xs'>{blog?.content?.length} characters (Min. 1000 characters)</p>
             </div>
-            
+            <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
+                <label htmlFor='image' className='bg-gray-100 hover:outline-0 hover:border-b-2 hover:border-b-black transition-colors p-2'>{blog?.image ? blog?.imgName : 'Upload Blog Header Image'}</label>
+                <input onChange={handleImage} type='file' className='hidden' name='image' id='image' accept='.png, .jpg, .jpeg'/>
+            </div>
         </form>
     </div>
   )

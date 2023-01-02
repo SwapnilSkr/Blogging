@@ -14,8 +14,39 @@ function EditBlog() {
         title: editBlogContent?.title,
         subtitle: editBlogContent?.subtitle,
         genre: editBlogContent?.genre,
-        content: editBlogContent?.content
+        content: editBlogContent?.content,
+        image: editBlogContent?.image,
+        imgName: editBlogContent?.imgName
     })
+
+    const handleImage = async (e) => {
+        const img = e.target.files[0]
+        const imgBase64 = await convertTobase64(img)
+        console.log(img);
+        console.log(imgBase64);
+        setBlog(prev => {
+            return {
+                ...prev,
+                image: imgBase64,
+                imgName: img.name
+            }
+        })
+    }
+
+    const convertTobase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    }
 
     useEffect(() => {
         setBlog(editBlogContent)
@@ -109,7 +140,10 @@ function EditBlog() {
                 <label htmlFor='content'>Content*</label>
                 <textarea value={blog?.content} minLength={10} placeholder='Min. 500 characters' onChange={handleContent} required className='bg-gray-100 focus:outline-0 focus:border-b-2 focus:border-b-black transition-colors p-2' name='content' id='content' cols='30' rows='10'/>
             </div>
-            
+            <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
+                <label htmlFor='image' className='bg-gray-100 hover:outline-0 hover:border-b-2 hover:border-b-black transition-colors p-2'>{blog?.image ? blog?.imgName : 'Upload Blog Header Image'}</label>
+                <input onChange={handleImage} type='file' className='hidden' name='image' id='image' accept='.png, .jpg, .jpeg'/>
+            </div>
         </form>
     </div>
   )

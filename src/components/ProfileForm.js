@@ -14,6 +14,8 @@ function ProfileForm() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
+  const [img, setImg] = useState(null)
+  const [imgName, setImgName] = useState(null)
   const [error,setError] = useState('')
 
   const handleSubmit = (e) => {
@@ -25,12 +27,16 @@ function ProfileForm() {
     registerUserApi({
       ...userInfo,
       name,
-      username
+      username,
+      img,
+      imgName
     }).then(async()=>{
       await dispatch(registerUser({
         ...userInfo,
         name,
-        username
+        username,
+        img,
+        imgName
       }))
       navigate('/home')
     }).catch(err => {
@@ -40,6 +46,30 @@ function ProfileForm() {
     })
     
   }
+
+  const handleImage = async (e) => {
+    const img = e.target.files[0]
+    const imgBase64 = await convertTobase64(img)
+    console.log(img);
+    console.log(imgBase64);
+    setImg(prev => imgBase64)
+    setImgName(img.name)
+}
+
+const convertTobase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(file)
+
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        }
+
+        fileReader.onerror = (error) => {
+            reject(error)
+        }
+    })
+}
 
   const handleName = (e) => {
     setName(prev=>e.target.value)
@@ -65,6 +95,10 @@ function ProfileForm() {
             <div className='flex flex-col input-grp relative animate-form delay-3'>
             <label className='' htmlFor='email'>Email</label>
             <p className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors p-2'>{userInfo.email}</p>
+            </div>
+            <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
+                <label htmlFor='image' className='bg-gray-100 hover:outline-0 hover:border-b-2 hover:border-b-black transition-colors p-2'>{img ? <img className='w-40 rounded-full h-40 object-cover object-center' src={img}/> : 'Upload Avatar Image'}</label>
+                <input required onChange={handleImage} type='file' className='hidden' name='image' id='image' accept='.png, .jpg, .jpeg'/>
             </div>
             <p className='text-red-700'>{error}</p>
             <button className='btn rounded-full bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 transition-all' type='submit'>Submit</button>
