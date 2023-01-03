@@ -139,6 +139,7 @@ function EditBlog() {
             <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
                 <label htmlFor='content'>Content*</label>
                 <textarea value={blog?.content} minLength={10} placeholder='Min. 500 characters' onChange={handleContent} required className='bg-gray-100 focus:outline-0 focus:border-b-2 focus:border-b-black transition-colors p-2' name='content' id='content' cols='30' rows='10'/>
+                <p className='absolute bottom-0 right-0 p-2 text-xs'>{blog?.content?.length} characters (Min. 1000 characters)</p>
             </div>
             <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
                 <label htmlFor='image' className='bg-gray-100 hover:outline-0 hover:border-b-2 hover:border-b-black transition-colors p-2'>{blog?.image ? blog?.imgName : 'Upload Blog Header Image'}</label>

@@ -13,14 +13,14 @@ function Home() {
         dispatch(getAllBlogsFromDb())
     }, [])
   return (
-    <div className='flex flex-col w-full flex-wrap pt-4'>
+    <div className='flex flex-col w-full flex-wrap py-4'>
       <div className='h-full flex flex-row rounded overflow-hidden'>
       <Carousel blogs={blogList?.slice(0,4)}/>
       </div>
-      <h2 className='py-8 font-playfair text-xl font-extrabold'>Blogs</h2>
+      <h2 className='py-8 font-playfair text-xl font-extrabold'>Recents Posts</h2>
       {blogListLoding && <p>Loading...</p>}
-      {blogListError && <p>{blogListError}</p>}
-      <BlogList blogList={blogList.length > 4 ? blogList?.slice(4) : blogList}/>
+      {/* {blogListError && <p>{blogListError}</p>} */}
+      <BlogList blogList={blogList && blogList}/>
     </div>
   )
 }

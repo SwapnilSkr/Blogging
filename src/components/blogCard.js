@@ -8,14 +8,14 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 function BlogCard({blog}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const handleBlog = () => {
-    dispatch(setBlogContent(blog))
+  const handleBlog = async () => {
+    await dispatch(setBlogContent(blog))
     navigate(`/blog/${blog._id}`)
   }
   return (
-    <div className='flex flex-col md:w-[400px] flex-wrap gap-2 items-start font-manrope' key={blog._id}>
-      <img src={blog?.image} className='w-full bg-black object-cover'/>
+    <div className='flex flex-1 flex-col w-full flex-wrap gap-2 items-start font-manrope' key={blog._id} style={{flexBasis:'30%'}}>
       <p className='text-sm text-blue-600'>{blog.genre}</p>
+      <img src={blog?.image} className='w-full bg-black object-cover'/>
       <h2 className='font-playfair font-extrabold text-2xl'>{blog.title}</h2>
       <p className=' text-sm italic'>{blog.subtitle}</p>
       {/* <p className='text-xs text-gray-500'>by @{blog.author.username}</p> */}

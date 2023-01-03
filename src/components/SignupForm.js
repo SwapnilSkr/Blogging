@@ -21,12 +21,12 @@ function SignupForm() {
         password: '',
     })
 
-    const handleSubmit =(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if(error === '')
         {
             console.log('user created: ',userObj)
-            dispatch(registerUser(userObj))
+            await dispatch(registerUser(userObj))
             navigate('/user-authentication/profile')
         }
     }

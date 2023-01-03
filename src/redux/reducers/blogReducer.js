@@ -2,6 +2,8 @@ import { SET_BLOG_CONTENT, SET_EDIT_BLOG_CONTENT, SET_BLOG_LIST, SET_BLOG_LIST_L
 
 const initialState = {
     blogContent: null,
+    blogContentLoading: false,
+    blogContentError: null,
     editBlogContent: null,
     blogList: null,
     blogListError: null,
@@ -98,17 +100,22 @@ export default function blogReducer(state = initialState, action) {
         case GET_BLOG_REQUEST:
             return {
                 ...state,
+                blogContentLoading: true,
                 blogContent: null,
             }
         case GET_BLOG_SUCCESS:
             return {
                 ...state,
                 blogContent: action.payload,
+                blogContentLoading: false,
+                blogContentError: null,
             }
         case GET_BLOG_FAILED:
             return {
                 ...state,
                 blogContent: null,
+                blogContentLoading: false,
+                blogContentError: action.payload,
             }
         case GET_PROFILE_BLOGS_REQUEST:
             return {

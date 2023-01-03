@@ -9,6 +9,7 @@ function Profile() {
     const {id} = useParams()
     const dispatch = useDispatch()
     const {blogList, blogListLoding, blogListError} = useSelector(state => state.blog)
+    const {userInfo} = useSelector(state => state.userAuth)
     console.log(blogList);
     useEffect(() => {
         dispatch(getProfileBlogsFromDb(id))
@@ -18,11 +19,11 @@ function Profile() {
     <>
     <div className='flex flex-col w-full flex-wrap pt-4'>
         <div className='w-full h-52 items-start overflow-hidden object-center flex'>
-          <img src={blogList[0]?.author?.img || Avatar} className='h-full rounded-full p-0'/>
-          <h2 className='font-manrope text-4xl font-extrabold p-8'>{blogList[0]?.author?.name}</h2>
+          <img src={id === userInfo?._id ? (userInfo?.img) : (blogList ? blogList[0]?.author?.img : Avatar)} className='h-full rounded-full p-0'/>
+          <h2 className='font-manrope text-4xl font-extrabold p-8'>{id === userInfo?._id ? (userInfo?.name) : (blogList && blogList[0]?.author?.name)}</h2>
         </div>
         {blogListLoding && <p>Loading...</p>}
-        {blogListError && <p>{blogListError}</p>}
+        {/* {blogListError && <p>{blogListError}</p>} */}
         <h2 className='py-8 font-playfair text-xl font-extrabold'>Blogs</h2>
         <BlogList blogList={blogList}/>
         </div>

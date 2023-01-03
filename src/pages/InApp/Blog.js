@@ -10,7 +10,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import Avatar from '../../images/avatar.png'
 
 function Blog() {
-    const {blogContent, editBlogContent, blogList} = useSelector(state => state.blog)
+    const {blogContent, blogContentLoading, blogContentError, editBlogContent, blogList} = useSelector(state => state.blog)
     console.log('blogContent: ',blogContent);
     console.log('editBlogContent: ',editBlogContent);
     const {userInfo} = useSelector(state => state.userAuth)
@@ -24,6 +24,7 @@ function Blog() {
     const [showDel, setShowDel] = useState(false)
     useEffect(() => {
       console.log(pathname);
+      window.scrollTo(0,0)
       if(pathname === `/blog/${id}`)  
       {
         if(id !== null ){
@@ -50,13 +51,18 @@ function Blog() {
       navigate(`/home`)
     }
 
-    if(blog !== null && blog?.contentHtml !== null)
-    document.getElementById('blog').innerHTML = blog?.contentHtml
+    useEffect(() => {
+      if(!blogContentLoading && blogContentError === null && blog !== null && blog?.contentHtml !== null)
+        document.getElementById('blog').innerHTML = blog?.contentHtml
+      else document.getElementById('blog').innerHTML = null
+    },[blog])
 
   return (
     <article className='flex flex-col md:flex-row gap-4 py-4 justify-stretch'>
+      {blogContentLoading && <p>Loading...</p>}
+      {blogContentError && <p>{blogContentError}</p>}
       <div className='flex flex-col items-start gap-4 font-manrope' style={{flexBasis:'100%'}}>
-          <div className='flex flex-row items-center justify-between w-full'>
+          <div className='flex flex-row items-center justify-between w-full animate-form'>
             {blog?.author && <p className='text-sm font-bold'>{new Date(blog?.createdAt).toString()}</p>}    
             {blog?.author && blog?.author._id === userInfo?._id && !pathname.endsWith('/preview') && 
             <div className='relative flex gap-2'>
@@ -76,19 +82,19 @@ function Blog() {
             </div>}
           </div>
           {(blog?.image !== null && blog?.image) && 
-          <div className='w-full h-80 md:h-[400px] overflow-hidden bg-black items-center flex justify-center'>
-            <img src={blog?.image} className='w-[100%] object-cover' />
+          <div className='w-full h-80 md:h-[500px] overflow-hidden bg-black items-center flex justify-center'>
+            <img loading='lazy' src={blog?.image} className='w-[100%] object-cover' />
           </div>
           }
-          <p className='text-5xl font-playfair font-extrabold'>{blog?.title}</p>
-          <p className='text-xl'>{blog?.subtitle}</p>
-          <p className='text-sm'>{blog?.genre}</p>
+          <p className='text-5xl font-playfair font-extrabold animate-form'>{blog?.title}</p>
+          <p className='text-xl animate-form'>{blog?.subtitle}</p>
+          <p className='text-sm animate-form'>{blog?.genre}</p>
           {/* <p className='text-sm text-justify'>{blog?.content}</p>
           <p className='text-sm text-justify'>{blog?.content}</p> */}
-          <div id='blog' className={!blog?.title && 'hidden'}></div>
-          {blog?.author && <p className='text-sm'>- by, <span className='font-medium'>{blog?.author?.name}</span>, @{blog?.author?.username}</p>}
+          <div id='blog' className={`${blogContentLoading && 'hidden'}`}></div>
+          {blog?.author && <p className='text-sm animate-form'>- by, <span className='font-medium'>{blog?.author?.name}</span>, @{blog?.author?.username}</p>}
           {blog?.author && !pathname.endsWith('/preview') &&
-          <Link to={`/profile/${blog?.author?._id}`} className='flex items-stretch gap-8 p-8 rounded w-full bg-gradient-to-b from-black/70 to-black/95 text-white hover:shadow-lg hover:cursor-pointer'>
+          <Link to={`/profile/${blog?.author?._id}`} className=' animate-form flex items-stretch gap-8 p-8 rounded w-full bg-gradient-to-b from-black/70 to-black/95 text-white hover:shadow-lg hover:cursor-pointer'>
             <div className='w-16 bg-gray-100 rounded-full overflow-hidden'>
               <img className='w-full' src={blog?.author?.img || Avatar}/>
             </div>

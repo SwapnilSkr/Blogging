@@ -6,28 +6,42 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
 .container{
     max-width: 1360px;
     margin: 0 auto;
 }
 
-h1, h2{
+#blog{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+#blog > h1,#blog > h2{
     font-family: 'Playfair Display', sans-serif;
     font-weight: 800;
-    line-height: 3.5rem;
+    margin-bottom: 0.875rem;
     color: #000000;
 }
 
-h1{
+#blog > h1{
     font-size: 2.5rem;
 }
 
-h2{
+#blog > h2{
+    font-family: 'Manrope';
+    /* font-weight: bolder; */
     font-size: 1.5rem;
 }
 
-p{
+#blog p{
     font-family: 'Manrope', sans-serif;
     font-size: 0.875rem;
+    margin-bottom: 0.875em;
 }
 

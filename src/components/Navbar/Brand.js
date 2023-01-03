@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-function Brand() {
+function Brand({size,color}) {
   return (
-    <div className='font-extrabold text-2xl'>
+    <div title='Home' className={`font-extrabold capitalize font-playfair text-${color} text-${size}xl`}>
       <Link to={'/home'}>Blogging.</Link>
     </div>
   )
