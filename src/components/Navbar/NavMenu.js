@@ -12,7 +12,7 @@ function NavMenu() {
   return (
     <div className={`w-full flex flex-col md:flex-row items-center justify-center md:justify-end gap-4 overflow-hidden ${!navOpen ? 'box-height-0' :'box-height-full'}`}>
         <NavLink title='Add New Blog' onClick={()=>toggleNav()} to={'/add'}>Add</NavLink>
-        <NavLink title='Profile' onClick={()=>toggleNav()} to={`/profile/${userInfo?._id}`}><img className='rounded-full w-8 h-8 hidden md:block' src={userInfo?.img || Avatar}/><span className='md:hidden'>Profile</span></NavLink>
+        <NavLink title='Profile' onClick={()=>toggleNav()} to={`/profile/${userInfo?._id}`}><img className='rounded-full w-8 h-8 hidden md:flex object-cover' src={userInfo?.img || Avatar}/><span className='md:hidden'>Profile</span></NavLink>
         <LogoutBtn/>
     </div>
   )

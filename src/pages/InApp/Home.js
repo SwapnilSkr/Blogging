@@ -7,7 +7,7 @@ import BlogList from '../../components/BlogList';
 
 function Home() {
     const dispatch = useDispatch()
-    const {blogList, blogListLoding, blogListError} = useSelector(state => state.blog)
+    const {blogList, blogListLoading, blogListError} = useSelector(state => state.blog)
     console.log(blogList);
     useEffect(() => {
         dispatch(getAllBlogsFromDb())
@@ -18,9 +18,9 @@ function Home() {
       <Carousel blogs={blogList?.slice(0,4)}/>
       </div>
       <h2 className='py-8 font-playfair text-xl font-extrabold'>Recents Posts</h2>
-      {blogListLoding && <p>Loading...</p>}
+      {blogListLoading && <p>Loading...</p>}
       {/* {blogListError && <p>{blogListError}</p>} */}
-      <BlogList blogList={blogList && blogList}/>
+      {!blogListLoading && <BlogList blogList={blogList && blogList}/>}
     </div>
   )
 }

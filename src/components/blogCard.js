@@ -14,7 +14,7 @@ function BlogCard({blog}) {
   }
   return (
     <div className='flex flex-1 flex-col w-full flex-wrap gap-2 items-start font-manrope' key={blog._id} style={{flexBasis:'30%'}}>
-      <p className='text-sm text-blue-600'>{blog.genre}</p>
+      <p className='text-sm capitalize text-blue-600'>{blog.genre}</p>
       <img src={blog?.image} className='w-full bg-black object-cover'/>
       <h2 className='font-playfair font-extrabold text-2xl'>{blog.title}</h2>
       <p className=' text-sm italic'>{blog.subtitle}</p>

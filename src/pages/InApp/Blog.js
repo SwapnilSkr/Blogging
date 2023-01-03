@@ -105,7 +105,7 @@ function Blog() {
           </Link>}
       </div>
       {!pathname.endsWith('/preview') && blogList?.length > 1 &&
-      <div className='font-manrope md:sticky top-0 border-t-2 md:border-l-2 md:border-t-0 pt-4 md:pl-4' style={{flexBasis:'20%'}}>
+      <div className='font-manrope md:sticky top-16  border-t-2 md:border-l-2 md:border-t-0 pt-4 md:pl-4' style={{flexBasis:'20%'}}>
         <div className='flex flex-col gap-4 md:sticky top-16'>
           <h3 className='border-b-4 border-red-600 font-bold'>Latest Updates</h3>
           {blogList?.filter(blog => blog?._id !== id).slice(0,4)?.map((blog) => (

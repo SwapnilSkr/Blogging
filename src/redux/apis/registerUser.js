@@ -7,6 +7,7 @@ const config = {
 export const registerUserApi = async (userInfo) => {
     const response = await axios.post('/users/register', userInfo, config);
     console.log(response.data);
+    return response.data;
 }
 export const loginUserApi = async (userInfo) => {
     const response = await axios.post('/users/login', userInfo, config);

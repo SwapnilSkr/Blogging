@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 
 export default function LinearDeterminate() {
   const [progress, setProgress] = useState(0);
-    const {blogContentLoading} = useSelector(state => state.blog)
+    const {blogContentLoading, blogListLoading, profileBlogListLoading} = useSelector(state => state.blog)
   useEffect(() => {
-    if(blogContentLoading)
+    if(blogContentLoading || blogListLoading || profileBlogListLoading)
     {
         const timer = setInterval(() => {
             setProgress((oldProgress) => {
@@ -23,9 +23,9 @@ export default function LinearDeterminate() {
         };
     }
     else setProgress(0)
-  }, [blogContentLoading]);
+  }, [blogContentLoading, blogListLoading, profileBlogListLoading]);
 
   return (
-      blogContentLoading && <LinearProgress className='w-full fixed -translate-y-4 top-0' variant="determinate" value={progress} />
+      (blogContentLoading || blogListLoading || profileBlogListLoading) && <LinearProgress className='w-full fixed -translate-y-4 top-0' variant="determinate" value={progress} />
   );
 }

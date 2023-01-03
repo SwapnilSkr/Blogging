@@ -18,26 +18,20 @@ function ProfileForm() {
   const [imgName, setImgName] = useState(null)
   const [error,setError] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if(name === '' || username === ''){
       setError(prev=>'Please fill all the fields')
       return
     }
-    registerUserApi({
+    await registerUserApi({
       ...userInfo,
       name,
       username,
       img,
       imgName
-    }).then(async()=>{
-      await dispatch(registerUser({
-        ...userInfo,
-        name,
-        username,
-        img,
-        imgName
-      }))
+    }).then(async(res)=>{
+      await dispatch(registerUser(res))
       navigate('/home')
     }).catch(err => {
       console.log(err.response.data.error);
