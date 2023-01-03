@@ -8,6 +8,7 @@ const initialState = {
     blogList: null,
     blogListError: null,
     blogListLoading: false,
+    profileBlogList : null,
     profileBlogListLoading: false,
     profileBlogListError: null,
     addBlogLoading: false,
@@ -127,7 +128,7 @@ export default function blogReducer(state = initialState, action) {
         case GET_PROFILE_BLOGS_SUCCESS:
             return {
                 ...state,
-                blogList: action.payload,
+                profileBlogList: action.payload,
                 profileBlogListLoading: false,
             }
         case GET_PROFILE_BLOGS_FAILED:

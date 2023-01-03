@@ -36,7 +36,7 @@ function AppHome() {
     <div className='min-h-screen container p-4 md:p-0'>
       <Outlet/>
     </div>
-    <div className='w-full bg-black/95 py-2 md:py-8 pb-2 px-4 md:px-0 transition-all text-white'>
+    <div className='w-full bg-black/95 py-2 md:py-12 pb-2 px-4 md:px-0 transition-all text-white'>
       <Footer/>
     </div>
     </>

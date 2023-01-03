@@ -4,13 +4,15 @@ import BlogCard from '../../components/BlogCard';
 import { getAllBlogsFromDb } from '../../redux/actions/GetAllBlogs';
 import Carousel from '../../components/Carousel';
 import BlogList from '../../components/BlogList';
+import { useLocation } from 'react-router-dom';
 
 function Home() {
     const dispatch = useDispatch()
+    const {pathname} = useLocation()
     const {blogList, blogListLoading, blogListError} = useSelector(state => state.blog)
-    console.log(blogList);
+    console.log('Home: ',blogList);
     useEffect(() => {
-        dispatch(getAllBlogsFromDb())
+        if(pathname === '/home') dispatch(getAllBlogsFromDb())
     }, [])
   return (
     <div className='flex flex-col w-full flex-wrap py-4'>
