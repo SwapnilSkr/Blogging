@@ -20,7 +20,7 @@ function CarouselCard({blog}) {
             <p className='animate-form text-sm md:text-lg md:p-4 md:max-w-6xl'>{blog?.subtitle}</p>
             <div className='w-full flex items-center justify-between'>
             <p className='text-xs text-white capitalize text-center p-2 rounded-full border border-red-600 animate-form'>{blog?.genre}</p>
-            <button onClick={handleBlog} className='z-10 font-bold text-sm hover:underline transition-all self-end items-end flex flex-row'>Read More<ArrowOutwardIcon sx={{fontSize:'20px'}}/></button>
+            <button onClick={handleBlog} style={{zIndex:1}} className='font-bold text-sm hover:underline transition-all self-end items-end flex flex-row'>Read More<ArrowOutwardIcon sx={{fontSize:'20px'}}/></button>
             </div>
         </div>
   )

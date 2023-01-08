@@ -1,0 +1,9 @@
+.blog-card{
+    flex-direction: column;
+}
+
+@container (min-width: 400px) {
+  .blog-card {
+    flex-direction: row;
+  }
+}

@@ -19,7 +19,7 @@ function AppHome() {
   
   window.addEventListener('scroll', (e) => {
     if(window.scrollY > 0){
-      nav.current.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)'
+      nav.current.style.boxShadow = '0 0 5px rgba(0,0,0,0.2)'
       nav.current.classList.remove('md:py-4')
       nav.current.classList.add('md:py-2')
     }else{
