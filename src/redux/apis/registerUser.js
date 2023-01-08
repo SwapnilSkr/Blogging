@@ -9,6 +9,11 @@ export const registerUserApi = async (userInfo) => {
     console.log(response.data);
     return response.data;
 }
+export const updateUserApi = async (userInfo) => {
+    const response = await axios.post('/users/update', userInfo, config);
+    console.log(response.data);
+    return response.data;
+}
 export const loginUserApi = async (userInfo) => {
     const response = await axios.post('/users/login', userInfo, config);
     console.log('res: ',response.data);

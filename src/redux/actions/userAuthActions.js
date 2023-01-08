@@ -9,6 +9,9 @@ import {
     USER_REGISTER_FAILED,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
+    USER_UPDATE_FAILED,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS,
     SET_USER,
 } from '../constants/userAuth'
 
@@ -42,6 +45,36 @@ export const registerUser = (userInfo) => async (dispatch) => {
         dispatch(userRegisterSuccess(userInfo))
     } catch (error) {
         dispatch(userRegisterFailed(error.message))
+    }
+}
+
+export const userUpdateRequest = () => {
+    return {
+        type: USER_UPDATE_REQUEST,
+    }
+} 
+
+export const userUpdateSuccess = (payload) => {
+    console.log('User Info:',payload);
+    localStorage.setItem('userInfo', JSON.stringify({...payload,password:null}))
+    return {
+        type: USER_UPDATE_SUCCESS,
+        payload,
+    }
+}
+
+export const userUpdateFailed = (payload) => {
+    return {
+        type: USER_UPDATE_FAILED,
+        payload,
+    }
+}
+export const updateUser = (userInfo) => async (dispatch) => {
+    dispatch(userUpdateRequest())
+    try {
+        dispatch(userUpdateSuccess(userInfo))
+    } catch (error) {
+        dispatch(userUpdateFailed(error.message))
     }
 }
 

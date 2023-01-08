@@ -18,7 +18,7 @@ function Profile() {
     console.log(profileBlogList);
     useEffect(() => {
         if(pathname.includes('profile')) dispatch(getProfileBlogsFromDb(id))
-    }, [id])
+    }, [id, userInfo])
 
     const handleShow = () => {
       setShow(prev => !prev)
@@ -37,7 +37,8 @@ function Profile() {
           profileHead.classList.add('-top-16')
           profileHead.classList.remove('md:top-12','top-0')
         }})
-
+console.log(id === userInfo?._id);
+console.log(userInfo?.username);
   return (
     <>
     <EditProfile show={show} handleShow={handleShow}/>
@@ -46,14 +47,15 @@ function Profile() {
           <img src={id === userInfo?._id ? (userInfo?.img || Avatar) : (profileBlogList && profileBlogList[0]?.author?.img || Avatar)} className='h-12 md:h-full object-cover rounded-full p-0' style={{aspectRatio:1/1}}/>
           <div className='font-manrope flex flex-col w-full'>
             <h2 className='text-md font-bold flex w-full items-center justify-between gap-2'>{id === userInfo?._id ? (userInfo?.name) : (profileBlogList && profileBlogList[0]?.author?.name)} {userInfo?._id === id && !show && <button onClick={handleShow} className='p-1 bg-gray-200 shadow-lg rounded-full flex items-center justify-center'><EditRoundedIcon sx={{fontSize:'16px'}}/></button>}</h2>
-            <p className='text-xs text-gray-500'>@{profileBlogList && profileBlogList[0]?.author?.username}</p>
+            <p className='text-xs text-gray-500'>@{id == userInfo?._id ? userInfo?.username : (profileBlogList && profileBlogList[0]?.author?.username)}</p>
           </div>
         </div>
         <div className='w-full h-24 md:h-40 items-center md:items-start overflow-hidden object-center flex flex-row'>
           <img src={id === userInfo?._id ? (userInfo?.img || Avatar) : (profileBlogList && profileBlogList[0]?.author?.img || Avatar)} className='h-24 md:h-full object-cover rounded-full p-0' style={{aspectRatio:1/1}}/>
           <div className='font-manrope  p-8 flex flex-col gap-4'>
             <h2 className='text-4xl font-extrabold flex gap-4'>{id === userInfo?._id ? (userInfo?.name) : (profileBlogList && profileBlogList[0]?.author?.name)} {userInfo?._id === id && !show && <button onClick={handleShow} className='p-2 bg-gray-200 shadow-lg rounded-full flex items-center justify-center'><EditRoundedIcon/></button>}</h2>
-            <p className='text-sm text-gray-500'>@{profileBlogList && profileBlogList[0]?.author?.username}</p>
+            <p className='text-sm text-gray-500'>@{id == userInfo?._id ? userInfo?.username : (profileBlogList && profileBlogList[0]?.author?.username)}</p>
+            <p className='text-xs text-gray-500'>{id == userInfo?._id ? userInfo?.description : (profileBlogList && profileBlogList[0]?.author?.description)}</p>
           </div>
         </div>
         {profileBlogListLoading && <p>Loading...</p>}

@@ -92,7 +92,7 @@ const convertTobase64 = (file) => {
             </div>
             <div className='flex flex-col input-grp relative animate-form gap-1 delay-45'>
                 <label htmlFor='image' className='bg-gray-100 hover:outline-0 hover:border-b-2 hover:border-b-black transition-colors p-2'>{img ? <img className='w-40 rounded-full h-40 object-cover object-center' src={img}/> : 'Upload Avatar Image'}</label>
-                <input required onChange={handleImage} type='file' className='hidden' name='image' id='image' accept='.png, .jpg, .jpeg'/>
+                <input onChange={handleImage} type='file' className='hidden' name='image' id='image' accept='.png, .jpg, .jpeg'/>
             </div>
             <p className='text-red-700'>{error}</p>
             <button className='btn rounded-full bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 transition-all' type='submit'>Submit</button>
