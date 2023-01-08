@@ -15,6 +15,7 @@ function SignupForm() {
     const [error, setError] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {userInfo,loading} = useSelector(state => state.userAuth)
 
     const [userObj, setUserObj] = useState({
         email: '',
@@ -25,9 +26,15 @@ function SignupForm() {
         e.preventDefault()
         if(error === '')
         {
-            console.log('user created: ',userObj)
-            await dispatch(registerUser(userObj))
-            navigate('/user-authentication/profile')
+            try{
+                await dispatch(registerUser(userObj))
+                console.log('user created: ',userObj)
+                navigate('/user-authentication/profile')
+            }
+            catch(err){
+                console.log('Err: ',err.message)
+                setError(prev=>err.message)
+            }
         }
     }
 
@@ -79,15 +86,15 @@ function SignupForm() {
             <div className='flex flex-col input-grp relative animate-form delay-15'>
             <label htmlFor='password'>Password</label>
             <input required onChange={(e)=>setPass(prev=>e.target.value)} className='focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors pr-10 p-2' type={showPassword ? 'text':'password'} name='password' id='password'/>
-            <button className='absolute bottom-0 right-0 p-2' onClick={()=>setShowPassword(prev=>!prev)} type='button'>{!showPassword ? 'Show' : 'Hide'}</button>
+            <button disabled={loading} className='absolute bottom-0 right-0 p-2' onClick={()=>setShowPassword(prev=>!prev)} type='button'>{!showPassword ? 'Show' : 'Hide'}</button>
             </div>
             <div className='flex flex-col input-grp relative animate-form delay-3'>
             <label htmlFor='password'>Confirm Password</label>
             <input required onChange={(e)=>setCPass(prev=>e.target.value)} className=' focus:outline-0 border-b-2 focus:border-b-blue-700 transition-colors pr-10 p-2' type={showCPassword ? 'text':'password'} name='password' id='password'/>
-            <button className='absolute bottom-0 right-0 p-2' onClick={()=>setShowCPassword(prev=>!prev)} type='button'>{!showCPassword ? 'Show' : 'Hide'}</button>
+            <button disabled={loading} className='absolute bottom-0 right-0 p-2' onClick={()=>setShowCPassword(prev=>!prev)} type='button'>{!showCPassword ? 'Show' : 'Hide'}</button>
             </div>
             <p className='text-red-700'>{error}</p>
-            <button className='btn rounded-full bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 transition-all' type='submit'>Sign Up</button>
+            <button disabled={loading} className='btn rounded-full bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 transition-all' type='submit'>{loading ? 'Signing up...' : 'Sign Up'}</button>
         </form>
         <p>Already have an account? <Link className='hover:text-blue-700 hover:underline transition-all' to={'/user-authentication/login'}>Login</Link></p>
     </div>

@@ -15,7 +15,7 @@ import {
     SET_USER,
 } from '../constants/userAuth'
 
-import { loginUserApi } from '../apis/registerUser';
+import { completeProfileApi, loginUserApi, validateCredentials } from '../apis/registerUser';
 
 export const userRegisterRequest = () => {
     return {
@@ -25,7 +25,6 @@ export const userRegisterRequest = () => {
 
 export const userRegisterSuccess = (payload) => {
     console.log('User Info:',payload);
-    localStorage.setItem('userInfo', JSON.stringify({...payload,password:null}))
     return {
         type: USER_REGISTER_SUCCESS,
         payload,
@@ -39,12 +38,48 @@ export const userRegisterFailed = (payload) => {
     }
 }
 
+export const completeProfileRequest = () => {
+    return {
+        type: USER_COMPLETE_PROFILE_REQUEST,
+    }
+}
+
+export const completeProfileSuccess = (payload) => {
+    return {
+        type: USER_COMPLETE_PROFILE_SUCCESS,
+        payload,
+    }
+}
+
+export const completeProfileFailed = (payload) => {
+    return {
+        type: USER_COMPLETE_PROFILE_FAILED,
+        payload,
+    }
+}
+
+export const completeProfile = (userInfo) => async (dispatch) => {
+    dispatch(completeProfileRequest())
+    try {
+        const res = await completeProfileApi(userInfo)
+        console.log('res: ',res);
+        dispatch(completeProfileSuccess(res))
+    } catch (error) {
+        dispatch(completeProfileFailed(error.response.data.error))
+        console.log(error.response.data.error);
+        throw new Error(error.response.data.error)
+    }
+}
+
 export const registerUser = (userInfo) => async (dispatch) => {
     dispatch(userRegisterRequest())
     try {
+        const res = await validateCredentials(userInfo)
         dispatch(userRegisterSuccess(userInfo))
     } catch (error) {
         dispatch(userRegisterFailed(error.message))
+        console.log(error.response.data.error);
+        throw new Error(error.response.data.error)
     }
 }
 

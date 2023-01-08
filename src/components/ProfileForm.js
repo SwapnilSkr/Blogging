@@ -2,8 +2,8 @@ import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/form.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { registerUser } from '../redux/actions/userAuthActions'
-import { registerUserApi } from '../redux/apis/registerUser'
+import { completeProfile } from '../redux/actions/userAuthActions'
+// import { completeProfile} from '../redux/apis/registerUser'
 import { showAlert } from '../redux/actions/alertActions'
 import { useNavigate } from 'react-router-dom'
 import ErrorIcon from '@mui/icons-material/Error';
@@ -24,20 +24,15 @@ function ProfileForm() {
       setError(prev=>'Please fill all the fields')
       return
     }
-    await registerUserApi({
-      ...userInfo,
-      name,
-      username,
-      img,
-      imgName
-    }).then(async(res)=>{
-      await dispatch(registerUser(res))
+    try{
+      await dispatch(completeProfile({...userInfo,name,username,img,imgName}))
       navigate('/home')
-    }).catch(err => {
-      console.log(err.response.data.error);
-      setError(prev=>err.response.data.error)
-      dispatch(showAlert({msg: err.response.data.error, type: 'error'}))
-    })
+  }
+    catch(err) {
+      console.log(err.message);
+      setError(prev=>err.message)
+      dispatch(showAlert({msg: err.message, type: 'error'}))
+    }
     
   }
 

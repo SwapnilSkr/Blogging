@@ -96,7 +96,7 @@ function Blog() {
           {blog?.author && !pathname.endsWith('/preview') &&
           <Link to={`/profile/${blog?.author?._id}`} className=' animate-form flex items-stretch gap-8 p-8 rounded w-full bg-gradient-to-b from-black/70 to-black/95 text-white hover:shadow-lg hover:cursor-pointer'>
             <div className='w-16 bg-gray-100 rounded-full overflow-hidden'>
-              <img className='w-full' src={blog?.author?.img || Avatar}/>
+              <img className='w-full object-cover' src={blog?.author?.img || Avatar} style={{aspectRatio:1/1}}/>
             </div>
             <div className='flex flex-col justify-between'>
             <p>{blog?.author?.name}</p>

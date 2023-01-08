@@ -35,6 +35,24 @@ const userAuthReducer = (state = {}, action) => {
                 loading: false,
                 error: action.payload,
             }
+        case USER_COMPLETE_PROFILE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case USER_COMPLETE_PROFILE_SUCCESS:
+            localStorage.setItem('userInfo', JSON.stringify({...action.payload,password:null}))
+            return {
+                ...state,
+                loading: false,
+                userInfo: {...action.payload,password:null},
+            }
+        case USER_COMPLETE_PROFILE_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            }
         case USER_UPDATE_REQUEST:
             return {
                 ...state,
